@@ -16,7 +16,7 @@ jobs:
           node-version: "22.18.0"
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
 
       - name: Run Lint
         run: npm run lint
