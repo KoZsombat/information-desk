@@ -63,7 +63,7 @@ function App() {
       <div className="relative flex h-full items-center justify-center p-4 md:p-6">
         <section className="relative flex h-[min(94vh,980px)] w-full max-w-380 flex-col overflow-hidden rounded-lg border border-green-200/60 bg-green-100/10 shadow-lg backdrop-blur-sm">
           <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between border-b border-green-100/50 bg-[#68B59D] px-6 py-4 text-xs uppercase tracking-[0.35em] text-white md:px-8">
-            <span>Petrik Lajos - információs pult</span>
+            <span>Petrik Lajos - információs pult teszt</span>
             <span className="hidden text-white md:inline">3D szinttérkép</span>
           </div>
 
