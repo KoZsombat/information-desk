@@ -43,9 +43,14 @@ jobs:
             }
 
             robocopy $sourcePath $destinationPath /MIR /R:2 /W:2 /NFL /NDL /NP
-            if ($LASTEXITCODE -gt 7) {
-              throw "Robocopy failed with exit code $LASTEXITCODE"
+            $robocopyExitCode = $LASTEXITCODE
+            if ($robocopyExitCode -gt 7) {
+              throw "Robocopy failed with exit code $robocopyExitCode"
             }
+
+            # GitHub Actions a nem nulla LASTEXITCODE-ot hibanak tekinti,
+            # de a Robocopy 0-7 kozotti kodjai sikeres/allokalt allapotok.
+            $global:LASTEXITCODE = 0
           }
           finally {
             $endState = (Get-WebAppPoolState -Name $appPoolName).Value
