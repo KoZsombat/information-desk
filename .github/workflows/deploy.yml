@@ -29,15 +29,16 @@ jobs:
         run: |
           Import-Module WebAdministration
 
-          # 1. App Pool leállítása
+          # 1. Leállítás hibaellenőrzés nélkül
+          # Az "-ErrorAction SilentlyContinue" megakadályozza a script leállását, ha a pool már áll
           Stop-WebAppPool -Name "Petrik1" -ErrorAction SilentlyContinue
 
-          # 2. Várjunk egy kicsit a fájlzárolások miatt
-          Start-Sleep -s 2
+          # 2. Várakozás a fájlok felszabadítására
+          Start-Sleep -s 3
 
           # 3. MÁSOLÁS - Itt a ./dist/* a lényeg!
-          # A -Force felülírja a régi fájlokat
-          Copy-Item -Path "./dist/*" -Destination "C:\Users\Administrator\Desktop\Petrik1\dist" -Recurse -Force
+          # Használjuk a teljes elérési utat a biztonság kedvéért
+          Copy-Item -Path "C:\Users\Administrator\Desktop\PETRIK1\_work\information-desk\information-desk\dist\*" -Destination "C:\Users\Administrator\Desktop\PETRIK1\dist" -Recurse -Force
 
-          # 4. App Pool újraindítása
+          # 4. Újraindítás
           Start-WebAppPool -Name "Petrik1"
