@@ -1,0 +1,37 @@
+name: IIS Deploy
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.18.0"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Lint
+        run: npm run lint
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Deploy to IIS
+        run: |
+          # Stop the App Pool to prevent file-lock errors
+          Import-Module WebAdministration
+          Stop-WebAppPool -Name "Petrik1"
+
+          # Copy files to the IIS physical path
+          Copy-Item -Path "./publish/*" -Destination "C:\Desktop\Petrik1\dist" -Recurse -Force
+
+          # Restart the App Pool
+          Start-WebAppPool -Name "Petrik1"

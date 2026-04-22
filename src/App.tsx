@@ -61,7 +61,7 @@ function App() {
     <main className="relative h-screen w-screen overflow-x-hidden bg-[#E8FBED]">
       <div className="absolute inset-0 bg-[#E8FBED]/30" />
       <div className="relative flex h-full items-center justify-center p-4 md:p-6">
-        <section className="relative flex h-[min(94vh,980px)] w-full max-w-[1520px] flex-col overflow-hidden rounded-lg border border-green-200/60 bg-green-100/10 shadow-lg backdrop-blur-sm">
+        <section className="relative flex h-[min(94vh,980px)] w-full max-w-380 flex-col overflow-hidden rounded-lg border border-green-200/60 bg-green-100/10 shadow-lg backdrop-blur-sm">
           <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between border-b border-green-100/50 bg-[#68B59D] px-6 py-4 text-xs uppercase tracking-[0.35em] text-white md:px-8">
             <span>Petrik Lajos - információs pult</span>
             <span className="hidden text-white md:inline">3D szinttérkép</span>
@@ -100,12 +100,12 @@ function App() {
                 />
               </Canvas>
             </div>
-            <div className="flex h-full w-full flex-col items-stretch gap-6 p-4 text-gray-800 xl:w-[24rem] xl:flex-none md:items-center xl:p-5 2xl:w-[28rem]">
+            <div className="flex h-full w-full flex-col items-stretch gap-6 p-4 text-gray-800 xl:w-[24rem] xl:flex-none md:items-center xl:p-5 2xl:w-md">
               <div className="w-full rounded-lg border border-green-300/50 bg-green-50 px-5 py-4 text-center text-sm text-gray-600 backdrop-blur-sm md:w-auto md:text-left hidden md:block xl:mt-10">
                 Kattints rá egy szintre ha ki szeretnéd jelölni majd megint ha
                 alap állapotba szeretnéd állítani!
               </div>
-              <div className="w-full rounded-lg border border-green-200/60 bg-green-50 p-5 shadow-sm backdrop-blur-sm md:max-w-[28rem]">
+              <div className="w-full rounded-lg border border-green-200/60 bg-green-50 p-5 shadow-sm backdrop-blur-sm md:max-w-md">
                 <div className="mb-4 flex items-center justify-between">
                   <p className="text-sm font-semibold tracking-wide text-gray-600 uppercase">
                     Keresés
@@ -133,7 +133,7 @@ function App() {
                   </label>
                 </div>
               </div>
-              <div className="w-full rounded-lg border border-green-200/60 bg-green-50 p-5 shadow-sm backdrop-blur-sm md:max-w-[28rem]">
+              <div className="w-full rounded-lg border border-green-200/60 bg-green-50 p-5 shadow-sm backdrop-blur-sm md:max-w-md">
                 <div className="mb-4 flex items-center justify-between">
                   <p className="text-sm font-semibold tracking-wide text-gray-600 uppercase">
                     Kategória
