@@ -1,5 +1,4 @@
 import Room from "./Room";
-import { useState } from "react";
 import { floorGroups, isBaseRoomLabel, isCorridorLabel } from "./roomData";
 
 type RoomGroupProps = {
@@ -8,30 +7,28 @@ type RoomGroupProps = {
     selfCategory: string,
     baseOpacity?: number,
   ) => number;
-  onHoverStart: (label: string, x: number, y: number) => void;
-  onHoverMove: (x: number, y: number) => void;
-  onHoverEnd: () => void;
+  zoomFilter: number | null;
+  onZoomChange: (filter: number | null) => void;
+  onTooltipShow: (label: string, x: number, y: number) => void;
 };
 
 function RoomGroups({
   getOpacity,
-  onHoverStart,
-  onHoverMove,
-  onHoverEnd,
+  zoomFilter,
+  onZoomChange,
+  onTooltipShow,
 }: RoomGroupProps) {
-  const [filter, setFilter] = useState<number | null>(null);
-
   return (
     <group position={[0, 0, 0]} rotation={[-1.2, 0, 0.2]}>
       {floorGroups
-        .filter((e) => (filter != null ? e.floor == filter : e))
+        .filter((e) => (zoomFilter != null ? e.floor == zoomFilter : e))
         .map((floor, floorIndex) => (
           <group
             key={floorIndex}
-            position={filter != null ? [0, 1, 0] : floor.position}
+            position={zoomFilter != null ? [0, 1, 0] : floor.position}
             scale={floor.scale}
             onClick={() =>
-              filter == null ? setFilter(floor.floor) : setFilter(null)
+              zoomFilter == null ? onZoomChange(floor.floor) : null
             }
           >
             {floor.rooms.map((room) => {
@@ -58,13 +55,9 @@ function RoomGroups({
                   color={room.color}
                   opacity={opacity}
                   label={room.label}
-                  onHoverStart={
-                    isBaseRoom || isCorridor ? undefined : onHoverStart
+                  onRoomClick={
+                    isBaseRoom || isCorridor ? undefined : zoomFilter ? onTooltipShow : undefined
                   }
-                  onHoverMove={
-                    isBaseRoom || isCorridor ? undefined : onHoverMove
-                  }
-                  onHoverEnd={isBaseRoom || isCorridor ? undefined : onHoverEnd}
                 />
               );
             })}

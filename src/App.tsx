@@ -15,6 +15,7 @@ type HoverState = {
 function App() {
   const [filter, setFilter] = useState("");
   const [category, setCategory] = useState("");
+  const [zoomFilter, setZoomFilter] = useState<number | null>(null);
   const orbitRef = useRef<OrbitControlsImpl | null>(null);
 
   const [hover, setHover] = useState<HoverState>({
@@ -33,16 +34,14 @@ function App() {
     });
   };
 
-  const moveTooltip = (x: number, y: number) => {
-    setHover((prev) => ({
-      ...prev,
-      top: y - 6,
-      left: x,
-    }));
-  };
-
   const hideTooltip = () => {
     setHover((prev) => ({ ...prev, visible: false }));
+  };
+
+  const resetCamera = () => {
+    orbitRef.current?.reset();
+    setZoomFilter(null);
+    hideTooltip();
   };
 
   const getOpacity = (
@@ -87,9 +86,9 @@ function App() {
 
                 <RoomGroups
                   getOpacity={getOpacity}
-                  onHoverStart={showTooltip}
-                  onHoverMove={moveTooltip}
-                  onHoverEnd={hideTooltip}
+                  zoomFilter={zoomFilter}
+                  onZoomChange={setZoomFilter}
+                  onTooltipShow={showTooltip}
                 />
                 <OrbitControls
                   enableDamping
@@ -169,13 +168,111 @@ function App() {
                     <input
                       type="radio"
                       name="category"
-                      value="Biológia"
-                      checked={category === "Biológia"}
+                      value="Laboratorium"
+                      checked={category === "Laboratorium"}
                       onChange={(e) => setCategory(e.target.value)}
                       className="peer sr-only"
                     />
                     <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
-                      Biológia
+                      Laboratorium
+                    </span>
+                  </label>
+
+                  <label className="cursor-pointer">
+                    <input
+                      type="radio"
+                      name="category"
+                      value="Tanterem"
+                      checked={category === "Tanterem"}
+                      onChange={(e) => setCategory(e.target.value)}
+                      className="peer sr-only"
+                    />
+                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
+                      Tanterem
+                    </span>
+                  </label>
+
+                  <label className="cursor-pointer">
+                    <input
+                      type="radio"
+                      name="category"
+                      value="Tanari szoba"
+                      checked={category === "Tanari szoba"}
+                      onChange={(e) => setCategory(e.target.value)}
+                      className="peer sr-only"
+                    />
+                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
+                      Tanari szoba
+                    </span>
+                  </label>
+
+                  <label className="cursor-pointer">
+                    <input
+                      type="radio"
+                      name="category"
+                      value="Irodak"
+                      checked={category === "Irodak"}
+                      onChange={(e) => setCategory(e.target.value)}
+                      className="peer sr-only"
+                    />
+                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
+                      Irodak
+                    </span>
+                  </label>
+
+                  <label className="cursor-pointer">
+                    <input
+                      type="radio"
+                      name="category"
+                      value="Tornaterem"
+                      checked={category === "Tornaterem"}
+                      onChange={(e) => setCategory(e.target.value)}
+                      className="peer sr-only"
+                    />
+                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
+                      Tornaterem
+                    </span>
+                  </label>
+
+                  <label className="cursor-pointer">
+                    <input
+                      type="radio"
+                      name="category"
+                      value="WC"
+                      checked={category === "WC"}
+                      onChange={(e) => setCategory(e.target.value)}
+                      className="peer sr-only"
+                    />
+                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
+                      WC
+                    </span>
+                  </label>
+
+                  <label className="cursor-pointer">
+                    <input
+                      type="radio"
+                      name="category"
+                      value="Elokeszito"
+                      checked={category === "Elokeszito"}
+                      onChange={(e) => setCategory(e.target.value)}
+                      className="peer sr-only"
+                    />
+                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
+                      Elokeszito
+                    </span>
+                  </label>
+
+                  <label className="cursor-pointer">
+                    <input
+                      type="radio"
+                      name="category"
+                      value="Egyeb"
+                      checked={category === "Egyeb"}
+                      onChange={(e) => setCategory(e.target.value)}
+                      className="peer sr-only"
+                    />
+                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
+                      Egyeb
                     </span>
                   </label>
                 </div>
@@ -188,7 +285,7 @@ function App() {
             </div>
             <button
               className="pointer-events-auto cursor-pointer w-full rounded-lg border border-green-300/50 bg-green-50 px-4 py-3 text-center text-gray-600 font-semibold backdrop-blur-sm md:w-auto md:text-left hidden md:block"
-              onClick={() => orbitRef.current?.reset()}
+              onClick={resetCamera}
             >
               Kamera szög alaphelyeztbe állítása
             </button>

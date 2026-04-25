@@ -5,9 +5,7 @@ type RoomProps = ThreeElements["mesh"] & {
   color?: string;
   opacity?: number;
   label?: string;
-  onHoverStart?: (label: string, x: number, y: number) => void;
-  onHoverMove?: (x: number, y: number) => void;
-  onHoverEnd?: () => void;
+  onRoomClick?: (label: string, x: number, y: number) => void;
 };
 
 function Room({
@@ -15,28 +13,17 @@ function Room({
   color = "rgb(245, 158, 11)",
   opacity = 1,
   label = "Terem",
-  onHoverStart,
-  onHoverMove,
-  onHoverEnd,
+  onRoomClick,
   ...props
 }: RoomProps) {
   const materialOpacity = Math.max(0, Math.min(1, opacity));
 
-  const handlePointerOver = (event: ThreeEvent<PointerEvent>) => {
-    onHoverStart?.(label, event.nativeEvent.clientX, event.nativeEvent.clientY);
-  };
-
-  const handlePointerMove = (event: ThreeEvent<PointerEvent>) => {
-    onHoverMove?.(event.nativeEvent.clientX, event.nativeEvent.clientY);
+  const handleClick = (event: ThreeEvent<MouseEvent>) => {
+    onRoomClick?.(label, event.nativeEvent.clientX, event.nativeEvent.clientY);
   };
 
   return (
-    <mesh
-      {...props}
-      onPointerOver={handlePointerOver}
-      onPointerMove={handlePointerMove}
-      onPointerOut={onHoverEnd}
-    >
+    <mesh {...props} onClick={handleClick}>
       <boxGeometry args={size} />
       <meshStandardMaterial
         color={color}
