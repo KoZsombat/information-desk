@@ -3,45 +3,34 @@ import { OrbitControls } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { useState, useRef } from "react";
 import RoomGroups from "./components/RoomGroups";
-import Tooltip from "./components/Tooltip";
+import {
+  categoryOptions,
+  floorGroups,
+  isBaseRoomLabel,
+  isCorridorLabel,
+  type RoomDefinition,
+} from "./components/roomData";
 
-type HoverState = {
-  visible: boolean;
-  content: string;
-  top: number;
-  left: number;
-};
+type SelectedRoomData = RoomDefinition & { floor: number };
 
 function App() {
   const [filter, setFilter] = useState("");
   const [category, setCategory] = useState("");
   const [zoomFilter, setZoomFilter] = useState<number | null>(null);
+  const [selectedRoom, setSelectedRoom] = useState<SelectedRoomData | null>(
+    null,
+  );
   const orbitRef = useRef<OrbitControlsImpl | null>(null);
-
-  const [hover, setHover] = useState<HoverState>({
-    visible: false,
-    content: "",
-    top: 0,
-    left: 0,
-  });
-
-  const showTooltip = (label: string, x: number, y: number) => {
-    setHover({
-      visible: true,
-      content: label,
-      top: y - 6,
-      left: x,
-    });
-  };
-
-  const hideTooltip = () => {
-    setHover((prev) => ({ ...prev, visible: false }));
-  };
 
   const resetCamera = () => {
     orbitRef.current?.reset();
     setZoomFilter(null);
-    hideTooltip();
+    setSelectedRoom(null);
+  };
+
+  const handleRoomSelect = (room: SelectedRoomData) => {
+    setSelectedRoom(room);
+    setFilter(room.label);
   };
 
   const getOpacity = (
@@ -58,18 +47,29 @@ function App() {
     return matchesFilter && matchesCategory ? baseOpacity : 0.4;
   };
 
+  const selectedFloorRooms =
+    floorGroups
+      .find((floor) => floor.floor === zoomFilter)
+      ?.rooms.filter(
+        (room) => !isBaseRoomLabel(room.label) && !isCorridorLabel(room.label),
+      ) ?? [];
+
+  const emojiByCategory = Object.fromEntries(
+    categoryOptions.map((option) => [option.value, option.emoji]),
+  );
+
   return (
-    <main className="relative h-screen w-screen overflow-x-hidden bg-[#E8FBED]">
+    <main className="relative h-dvh w-full overflow-hidden bg-[#E8FBED]">
       <div className="absolute inset-0 bg-[#E8FBED]/30" />
-      <div className="relative flex h-full items-center justify-center p-4 md:p-6">
-        <section className="relative flex h-[min(94vh,980px)] w-full max-w-380 flex-col overflow-hidden rounded-lg border border-green-200/60 bg-green-100/10 shadow-lg backdrop-blur-sm">
-          <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between border-b border-green-100/50 bg-[#68B59D] px-6 py-4 text-xs uppercase tracking-[0.35em] text-white md:px-8">
+      <div className="relative mx-auto flex h-full w-full items-center justify-center px-3 py-3 sm:px-4 sm:py-4 lg:px-8 lg:py-6 2xl:px-12 2xl:py-8">
+        <section className="relative flex h-full w-full max-w-550 flex-col overflow-hidden rounded-lg border border-green-200/60 bg-green-100/10 shadow-lg backdrop-blur-sm">
+          <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between border-b border-green-100/50 bg-[#68B59D] px-4 py-3 text-[10px] uppercase tracking-[0.22em] text-white sm:px-6 sm:py-4 sm:text-xs sm:tracking-[0.35em] md:px-8 2xl:px-10">
             <span>Petrik Lajos - információs pult</span>
             <span className="hidden text-white md:inline">3D szinttérkép</span>
           </div>
 
-          <div className="flex h-full w-full flex-col xl:flex-row">
-            <div className="min-h-[56vh] w-full min-w-0 flex-1 xl:min-h-0">
+          <div className="flex h-full min-h-0 w-full flex-col [@media(min-width:1280px)_and_(orientation:landscape)]:flex-row">
+            <div className="min-h-[44vh] w-full min-w-0 flex-1 [@media(min-width:1280px)_and_(orientation:portrait)]:h-[56vh] [@media(min-width:1280px)_and_(orientation:portrait)]:flex-none [@media(min-width:1280px)_and_(orientation:landscape)]:min-h-0">
               <Canvas
                 className="h-full w-full"
                 camera={{ position: [0, 0, 34], fov: 20, near: 0.1, far: 120 }}
@@ -88,7 +88,7 @@ function App() {
                   getOpacity={getOpacity}
                   zoomFilter={zoomFilter}
                   onZoomChange={setZoomFilter}
-                  onTooltipShow={showTooltip}
+                  onRoomSelect={handleRoomSelect}
                 />
                 <OrbitControls
                   enableDamping
@@ -102,12 +102,8 @@ function App() {
                 />
               </Canvas>
             </div>
-            <div className="flex h-full w-full flex-col items-stretch gap-6 p-4 text-gray-800 xl:w-[24rem] xl:flex-none md:items-center xl:p-5 2xl:w-md">
-              <div className="w-full rounded-lg border border-green-300/50 bg-green-50 px-5 py-4 text-center text-sm text-gray-600 backdrop-blur-sm md:w-auto md:text-left hidden md:block xl:mt-10">
-                Kattints rá egy szintre ha ki szeretnéd jelölni majd megint ha
-                alap állapotba szeretnéd állítani!
-              </div>
-              <div className="w-full rounded-lg border border-green-200/60 bg-green-50 p-5 shadow-sm backdrop-blur-sm md:max-w-md">
+            <div className="flex h-full w-full flex-col items-stretch gap-4 overflow-y-auto p-3 text-gray-800 sm:gap-5 sm:p-4 [@media(min-width:1280px)_and_(orientation:landscape)]:w-104 [@media(min-width:1280px)_and_(orientation:landscape)]:flex-none [@media(min-width:1280px)_and_(orientation:landscape)]:p-5 [@media(min-width:1536px)_and_(orientation:landscape)]:w-136">
+              <div className="w-full rounded-lg border border-green-200/60 bg-green-50 p-4 shadow-sm backdrop-blur-sm sm:p-5 xl:mt-8">
                 <div className="mb-4 flex items-center justify-between">
                   <p className="text-sm font-semibold tracking-wide text-gray-600 uppercase">
                     Keresés
@@ -135,7 +131,7 @@ function App() {
                   </label>
                 </div>
               </div>
-              <div className="w-full rounded-lg border border-green-200/60 bg-green-50 p-5 shadow-sm backdrop-blur-sm md:max-w-md">
+              <div className="w-full rounded-lg border border-green-200/60 bg-green-50 p-4 shadow-sm backdrop-blur-sm sm:p-5">
                 <div className="mb-4 flex items-center justify-between">
                   <p className="text-sm font-semibold tracking-wide text-gray-600 uppercase">
                     Kategória
@@ -150,157 +146,116 @@ function App() {
                   </button>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  <label className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="category"
-                      value="Informatika"
-                      checked={category === "Informatika"}
-                      onChange={(e) => setCategory(e.target.value)}
-                      className="peer sr-only"
-                    />
-                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
-                      Informatika
-                    </span>
-                  </label>
+                  {categoryOptions.map((option) => {
+                    const selected = category === option.value;
 
-                  <label className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="category"
-                      value="Laboratorium"
-                      checked={category === "Laboratorium"}
-                      onChange={(e) => setCategory(e.target.value)}
-                      className="peer sr-only"
-                    />
-                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
-                      Laboratorium
-                    </span>
-                  </label>
-
-                  <label className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="category"
-                      value="Tanterem"
-                      checked={category === "Tanterem"}
-                      onChange={(e) => setCategory(e.target.value)}
-                      className="peer sr-only"
-                    />
-                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
-                      Tanterem
-                    </span>
-                  </label>
-
-                  <label className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="category"
-                      value="Tanari szoba"
-                      checked={category === "Tanari szoba"}
-                      onChange={(e) => setCategory(e.target.value)}
-                      className="peer sr-only"
-                    />
-                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
-                      Tanari szoba
-                    </span>
-                  </label>
-
-                  <label className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="category"
-                      value="Irodak"
-                      checked={category === "Irodak"}
-                      onChange={(e) => setCategory(e.target.value)}
-                      className="peer sr-only"
-                    />
-                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
-                      Irodak
-                    </span>
-                  </label>
-
-                  <label className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="category"
-                      value="Tornaterem"
-                      checked={category === "Tornaterem"}
-                      onChange={(e) => setCategory(e.target.value)}
-                      className="peer sr-only"
-                    />
-                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
-                      Tornaterem
-                    </span>
-                  </label>
-
-                  <label className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="category"
-                      value="WC"
-                      checked={category === "WC"}
-                      onChange={(e) => setCategory(e.target.value)}
-                      className="peer sr-only"
-                    />
-                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
-                      WC
-                    </span>
-                  </label>
-
-                  <label className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="category"
-                      value="Elokeszito"
-                      checked={category === "Elokeszito"}
-                      onChange={(e) => setCategory(e.target.value)}
-                      className="peer sr-only"
-                    />
-                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
-                      Elokeszito
-                    </span>
-                  </label>
-
-                  <label className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="category"
-                      value="Egyeb"
-                      checked={category === "Egyeb"}
-                      onChange={(e) => setCategory(e.target.value)}
-                      className="peer sr-only"
-                    />
-                    <span className="inline-flex items-center rounded-full border border-green-300/80 bg-green-50/50 px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-green-400 hover:bg-green-100/60 peer-checked:border-green-500 peer-checked:bg-green-100/80 peer-checked:text-green-700 peer-checked:shadow-sm">
-                      Egyeb
-                    </span>
-                  </label>
+                    return (
+                      <label key={option.value} className="cursor-pointer">
+                        <input
+                          type="radio"
+                          name="category"
+                          value={option.value}
+                          checked={selected}
+                          onChange={(e) => setCategory(e.target.value)}
+                          className="sr-only"
+                        />
+                        <span
+                          className={`inline-flex items-center rounded-full border px-5 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:shadow-sm ${selected ? `${option.activeClass} shadow-sm` : option.inactiveClass}`}
+                        >
+                          <span className="mr-1.5" aria-hidden="true">
+                            {option.emoji}
+                          </span>
+                          {option.label}
+                        </span>
+                      </label>
+                    );
+                  })}
                 </div>
+              </div>
+              <div className="w-full rounded-lg border border-green-300/50 bg-green-50 px-4 py-4 text-sm text-gray-600 backdrop-blur-sm sm:px-5">
+                {zoomFilter == null ? (
+                  <div className="flex min-h-28 flex-col items-center justify-center rounded-lg bg-white px-4 py-5 text-center sm:min-h-32">
+                    <span
+                      className="inline-flex h-12 w-12 items-center justify-center text-2xl leading-none"
+                      aria-hidden="true"
+                    >
+                      👆
+                    </span>
+                    <p className="text-2xl font-semibold tracking-tight text-slate-800">
+                      Válassz egy emeletet!
+                    </p>
+                    <p className="mt-1.5 text-sm text-slate-500">
+                      Kattints a térkepre!.
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    {selectedRoom ? (
+                      <div className="mb-4 w-full rounded-lg border border-green-200/60 bg-green-50 p-4 text-sm text-gray-700 shadow-sm backdrop-blur-sm sm:p-5">
+                        <p className="mb-3 text-sm font-semibold tracking-wide text-gray-600 uppercase">
+                          Kivalasztott terem
+                        </p>
+                        <p>
+                          <span className="font-medium text-gray-600">
+                            Emelet:
+                          </span>{" "}
+                          <span className="text-gray-800">
+                            {selectedRoom.floor - 1}
+                          </span>
+                        </p>
+                        <p>
+                          <span className="font-medium text-gray-600">
+                            Név:
+                          </span>{" "}
+                          <span className="text-gray-800">
+                            {selectedRoom.label}
+                          </span>
+                        </p>
+                      </div>
+                    ) : null}
+                    <p className="text-center text-sm md:text-left">
+                      Kattints rá egy szintre ha ki szeretnéd jelölni!
+                    </p>
+                    <div className="mt-3 max-h-[min(38vh,22rem)] space-y-2 overflow-y-auto pr-1">
+                      {selectedFloorRooms.map((room) => (
+                        <div
+                          key={`${room.label}-${room.position.join("-")}`}
+                          className="flex cursor-pointer items-center gap-2 rounded-md border border-green-300/60 bg-green-50/60 px-3 py-2 text-sm text-gray-700 transition-colors duration-200 hover:bg-green-100/70"
+                          onClick={() => {
+                            if (zoomFilter == null) {
+                              return;
+                            }
+
+                            handleRoomSelect({ ...room, floor: zoomFilter });
+                          }}
+                        >
+                          <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-green-100 text-green-700">
+                            {room.category
+                              ? (emojiByCategory[room.category] ?? "🏫")
+                              : "🏫"}
+                          </span>
+                          <span className="truncate">{room.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
           <div className="pointer-events-none z-10 mt-0 flex flex-col items-stretch gap-3 px-6 py-4 text-sm text-gray-600 md:flex-row md:items-center md:justify-between md:px-8 md:py-2">
-            <div className="w-full rounded-lg border border-green-300/50 bg-green-50 px-4 py-3 text-center text-gray-600 backdrop-blur-sm md:w-auto md:text-left hidden md:block">
-              Szűrők használatával jobban látható a terem amit keresel!
-            </div>
             <button
-              className="pointer-events-auto cursor-pointer w-full rounded-lg border border-green-300/50 bg-green-50 px-4 py-3 text-center text-gray-600 font-semibold backdrop-blur-sm md:w-auto md:text-left hidden md:block"
+              className="pointer-events-auto cursor-pointer w-full rounded-lg border border-green-300/50 bg-green-50 px-4 py-3 text-center text-gray-600 font-semibold backdrop-blur-sm md:w-auto md:text-left"
               onClick={resetCamera}
             >
               Kamera szög alaphelyeztbe állítása
             </button>
-            <div className="w-full rounded-lg border border-green-700/60 bg-green-50 px-4 py-3 text-center text-green-700 backdrop-blur-sm md:w-auto md:text-left font-medium">
-              Készítette: Kovács Zsombor
+            <div className="w-full rounded-lg border border-green-300/50 bg-green-50 px-4 py-3 text-center text-gray-600 backdrop-blur-sm md:w-auto md:text-left">
+              Szűrők használatával jobban látható a terem amit keresel!
             </div>
           </div>
         </section>
       </div>
-      <Tooltip
-        visible={hover.visible}
-        content={hover.content}
-        top={hover.top}
-        left={hover.left}
-      />
     </main>
   );
 }

@@ -1,5 +1,12 @@
 import Room from "./Room";
-import { floorGroups, isBaseRoomLabel, isCorridorLabel } from "./roomData";
+import {
+  floorGroups,
+  isBaseRoomLabel,
+  isCorridorLabel,
+  type RoomDefinition,
+} from "./roomData";
+
+type SelectedRoomData = RoomDefinition & { floor: number };
 
 type RoomGroupProps = {
   getOpacity: (
@@ -9,14 +16,14 @@ type RoomGroupProps = {
   ) => number;
   zoomFilter: number | null;
   onZoomChange: (filter: number | null) => void;
-  onTooltipShow: (label: string, x: number, y: number) => void;
+  onRoomSelect: (room: SelectedRoomData) => void;
 };
 
 function RoomGroups({
   getOpacity,
   zoomFilter,
   onZoomChange,
-  onTooltipShow,
+  onRoomSelect,
 }: RoomGroupProps) {
   return (
     <group position={[0, 0, 0]} rotation={[-1.2, 0, 0.2]}>
@@ -54,9 +61,10 @@ function RoomGroups({
                   size={displaySize}
                   color={room.color}
                   opacity={opacity}
-                  label={room.label}
                   onRoomClick={
-                    isBaseRoom || isCorridor ? undefined : zoomFilter ? onTooltipShow : undefined
+                    isBaseRoom || isCorridor || !zoomFilter
+                      ? undefined
+                      : () => onRoomSelect({ ...room, floor: floor.floor })
                   }
                 />
               );
