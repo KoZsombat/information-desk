@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import RoomGroups from "./components/RoomGroups";
 import {
   categoryOptions,
@@ -21,12 +21,40 @@ function App() {
     null,
   );
   const orbitRef = useRef<OrbitControlsImpl | null>(null);
+  const idleResetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
+
+  const clearIdleResetTimer = () => {
+    if (idleResetTimeoutRef.current) {
+      clearTimeout(idleResetTimeoutRef.current);
+      idleResetTimeoutRef.current = null;
+    }
+  };
 
   const resetCamera = () => {
+    clearIdleResetTimer();
     orbitRef.current?.reset();
     setZoomFilter(null);
     setSelectedRoom(null);
   };
+
+  const handleControlsStart = () => {
+    clearIdleResetTimer();
+  };
+
+  const handleControlsEnd = () => {
+    clearIdleResetTimer();
+    idleResetTimeoutRef.current = setTimeout(() => {
+      resetCamera();
+    }, 15000);
+  };
+
+  useEffect(() => {
+    return () => {
+      clearIdleResetTimer();
+    };
+  }, []);
 
   const handleRoomSelect = (room: SelectedRoomData) => {
     setSelectedRoom(room);
@@ -98,6 +126,8 @@ function App() {
                   enableRotate
                   minDistance={14}
                   maxDistance={60}
+                  onStart={handleControlsStart}
+                  onEnd={handleControlsEnd}
                   ref={orbitRef}
                 />
               </Canvas>
