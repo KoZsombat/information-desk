@@ -6,6 +6,7 @@ import RoomGroups from "./components/RoomGroups";
 import {
   categoryOptions,
   floorGroups,
+  getFloorLabel,
   isBaseRoomLabel,
   isCorridorLabel,
   type RoomDefinition,
@@ -230,7 +231,7 @@ function App() {
                             Emelet:
                           </span>{" "}
                           <span className="text-gray-800">
-                            {selectedRoom.floor - 1}
+                            {getFloorLabel(selectedRoom.floor)}
                           </span>
                         </p>
                         <p>
@@ -245,6 +246,9 @@ function App() {
                     ) : null}
                     <p className="text-center text-sm md:text-left">
                       Kattints rá egy szintre ha ki szeretnéd jelölni!
+                    </p>
+                    <p className="mt-1 text-center text-xs text-slate-500 md:text-left">
+                      Aktualis szint: {getFloorLabel(zoomFilter)}
                     </p>
                     <div className="mt-3 max-h-[min(38vh,22rem)] space-y-2 overflow-y-auto pr-1">
                       {selectedFloorRooms.map((room) => (

@@ -1,6 +1,8 @@
 import Room from "./Room";
+import { Html } from "@react-three/drei";
 import {
   floorGroups,
+  getFloorLabel,
   isBaseRoomLabel,
   isCorridorLabel,
   type RoomDefinition,
@@ -38,6 +40,18 @@ function RoomGroups({
               zoomFilter == null ? onZoomChange(floor.floor) : null
             }
           >
+            {zoomFilter == null ? (
+              <Html
+                position={[11.5, -9.2, 0.2]}
+                center
+                distanceFactor={14}
+                style={{ pointerEvents: "none" }}
+              >
+                <div className="rounded-full border border-green-300/80 bg-green-50/95 px-3 py-1 text-xs font-semibold tracking-wide text-green-800 shadow-sm">
+                  {getFloorLabel(floor.floor)}
+                </div>
+              </Html>
+            ) : null}
             {floor.rooms.map((room) => {
               const isBaseRoom = isBaseRoomLabel(room.label);
               const isCorridor = isCorridorLabel(room.label);
