@@ -47,7 +47,7 @@ function RoomGroups({
                 distanceFactor={14}
                 style={{ pointerEvents: "none" }}
               >
-                <div className="rounded-full border border-green-300/80 bg-green-50/95 px-3 py-1 text-xs font-semibold tracking-wide text-green-800 shadow-sm">
+                <div className="rounded-full border w-max border-green-300/80 bg-green-50/95 px-3 py-1 text-xs font-semibold tracking-wide text-green-800 shadow-sm">
                   {getFloorLabel(floor.floor)}
                 </div>
               </Html>

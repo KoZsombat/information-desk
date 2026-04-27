@@ -136,14 +136,14 @@ const groundFloorRooms: RoomDefinition[] = [
     color: "rgb(201, 209, 224)",
     opacity: 0.4,
     label: "Folyosó - Földszint Bejárat",
-  }, 
+  },
   {
     position: [-0.7, 0.2, -1],
     size: [8.5, 1.0, 0.08],
     color: "rgb(201, 209, 224)",
     opacity: 0.4,
     label: "Folyosó - Földszint alsó szárny",
-  },  
+  },
   {
     position: [-3.1, -4.2, -0.01],
     size: [5.6, 1.0, 0.08],
@@ -180,14 +180,14 @@ const groundFloorRooms: RoomDefinition[] = [
     opacity: 0.4,
     label: "Folyosó - Lépcső",
   },
-    {
+  {
     position: [-3.95, 0.2, -0.9],
     size: [0.2, 1, 0.2],
     color: "rgb(201, 209, 224)",
     opacity: 0.4,
     label: "Folyosó - Lépcső",
   },
- //lépcső Felfele
+  //lépcső Felfele
   {
     position: [-4.79, 1.5, 0.1],
     size: [0.2, 1, 0.2],
@@ -225,6 +225,34 @@ const groundFloorRooms: RoomDefinition[] = [
   },
   {
     position: [-3.84, 1.5, 1.1],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [-3.63, 1.5, 1.3],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [-3.42, 1.5, 1.5],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [-3.21, 1.5, 1.7],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [-3, 1.5, 1.9],
     size: [0.2, 1, 0.2],
     color: "rgb(201, 209, 224)",
     opacity: 0.4,
@@ -367,7 +395,7 @@ const firstFloorRooms: RoomDefinition[] = [
     opacity: 0.28,
     label: "Folyosó - 1. emelet irodák",
   },
- //lépcső lefele
+  //lépcső lefele
   {
     position: [-4.79, -0.9, -0.1],
     size: [0.2, 1, 0.2],
@@ -396,15 +424,43 @@ const firstFloorRooms: RoomDefinition[] = [
     opacity: 0.4,
     label: "Folyosó - Lépcső",
   },
-    {
+  {
     position: [-3.95, -0.9, -0.9],
     size: [0.2, 1, 0.2],
     color: "rgb(201, 209, 224)",
     opacity: 0.4,
     label: "Folyosó - Lépcső",
   },
-//lépcső Felfele
-{
+  {
+    position: [-3.74, -0.9, -1.1],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [-3.53, -0.9, -1.3],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [-3.32, -0.9, -1.5],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [-3.11, -0.9, -1.7],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  //lépcső Felfele
+  {
     position: [-4.79, 0.2, 0.1],
     size: [0.2, 1, 0.2],
     color: "rgb(201, 209, 224)",
@@ -441,6 +497,34 @@ const firstFloorRooms: RoomDefinition[] = [
   },
   {
     position: [-3.84, 0.2, 1.1],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [-3.63, 0.2, 1.3],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [-3.42, 0.2, 1.5],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [-3.21, 0.2, 1.7],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [-3, 0.2, 1.9],
     size: [0.2, 1, 0.2],
     color: "rgb(201, 209, 224)",
     opacity: 0.4,
@@ -558,36 +642,37 @@ const firstFloorRooms: RoomDefinition[] = [
     color: "rgb(220, 230, 241)",
     label: "A128 Akadálymentes WC",
     category: "WC",
-  },    {
-    position: [1, -2.7, -0.6],
+  },
+  {
+    position: [1, -2.7, -1.5],
     size: [2.0, 3.0, 0.67],
     color: "rgb(234, 209, 220)",
     label: "A131 Tanári szoba",
     category: "Tanári szoba",
-  },  
+  },
   {
-    position: [1.5, 0.2, -0.6],
+    position: [1.5, 0.2, -1.5],
     size: [1.0, 3.0, 0.67],
     color: "rgb(234, 209, 220)",
     label: "A132 Igazgató Helyettes",
     category: "Tanári szoba",
-  },  
+  },
   {
-    position: [0.6, 0.7, -0.6],
+    position: [0.6, 0.7, -1.5],
     size: [1.0, 2.0, 0.67],
     color: "rgb(231, 190, 208)",
     label: "A133 Tanári szoba",
     category: "Tanári szoba",
-  },  
+  },
   {
-    position: [-1.9, -0.9, -1],
+    position: [0, -0.9, -1.8],
     size: [6, 1.0, 0.08],
     color: "rgb(201, 209, 224)",
     opacity: 0.28,
     label: "Folyosó - 1. emelet irodák",
   },
   {
-    position: [0, -1 , -0.98],
+    position: [0, -1, -1.8],
     size: [8, 8, 0.12],
     color: "rgb(248, 250, 252)",
     opacity: 0.5,
@@ -624,7 +709,7 @@ const secondFloorRooms: RoomDefinition[] = [
     opacity: 0.28,
     label: "Folyosó - 2. emelet irodák",
   },
-//lépcső lefele
+  //lépcső lefele
   {
     position: [-4.79, -2, -0.1],
     size: [0.2, 1, 0.2],
@@ -653,8 +738,36 @@ const secondFloorRooms: RoomDefinition[] = [
     opacity: 0.4,
     label: "Folyosó - Lépcső",
   },
-    {
+  {
     position: [-3.95, -2, -0.9],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [-3.74, -2, -1.1],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [-3.53, -2, -1.3],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [-3.32, -2, -1.5],
+    size: [0.2, 1, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [-3.11, -2, -1.7],
     size: [0.2, 1, 0.2],
     color: "rgb(201, 209, 224)",
     opacity: 0.4,
@@ -786,7 +899,7 @@ const secondFloorRooms: RoomDefinition[] = [
     color: "rgb(234, 209, 220)",
     label: "A213 Tanári szoba",
     category: "Tanári szoba",
-  },  
+  },
 ];
 
 export const floorGroups: FloorGroupDefinition[] = [
