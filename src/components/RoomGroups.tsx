@@ -29,6 +29,18 @@ function RoomGroups({
 }: RoomGroupProps) {
   return (
     <group position={[0, 0, 0]} rotation={[-1.2, 0, 0.2]}>
+      {zoomFilter == null ? (
+        <Html
+          position={[-3.8, 0, -3]}
+          center
+          distanceFactor={14}
+          style={{ pointerEvents: "none" }}
+        >
+          <div className="rounded-full border w-max border-red-300/80 bg-red-50/95 px-3 py-1 text-xs font-semibold tracking-wide text-red-800 shadow-sm">
+            Itt állsz
+          </div>
+        </Html>
+      ) : null}
       {floorGroups
         .filter((e) => (zoomFilter != null ? e.floor == zoomFilter : e))
         .map((floor, floorIndex) => (

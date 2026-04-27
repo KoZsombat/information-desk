@@ -353,7 +353,7 @@ const groundFloorRooms: RoomDefinition[] = [
   {
     position: [-7.3, -0.5, 0.3],
     size: [1, 1, 0.67],
-    color: "rgb(236, 224, 155)",
+    color: "rgb(236, 0, 0)",
     label: "A027 Porta",
     category: "Egyéb",
   },
