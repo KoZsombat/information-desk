@@ -236,6 +236,13 @@ const groundFloorRooms: RoomDefinition[] = [
     category: "WC",
   },
   {
+    position: [-7.3, -0.5, 0],
+    size: [1, 1, 0.22],
+    color: "rgb(236, 224, 155)",
+    label: "A027 Porta",
+    category: "Egyéb",
+  },
+  {
     position: [2.1, -1.0, 0],
     size: [2.2, 1.6, 0.22],
     color: "rgb(244, 204, 204)",
@@ -384,6 +391,40 @@ const firstFloorRooms: RoomDefinition[] = [
     color: "rgb(220, 230, 241)",
     label: "A128 Akadálymentes WC",
     category: "WC",
+  },    {
+    position: [1, -2.7, -3],
+    size: [2.0, 3.0, 0.22],
+    color: "rgb(234, 209, 220)",
+    label: "A131 Tanári szoba",
+    category: "Tanári szoba",
+  },  
+  {
+    position: [1.5, 0, -3],
+    size: [1.0, 3.0, 0.22],
+    color: "rgb(234, 209, 220)",
+    label: "A132 Igazgató Helyettes",
+    category: "Tanári szoba",
+  },  
+  {
+    position: [0.7, 0.5, -3],
+    size: [1.0, 2.0, 0.22],
+    color: "rgb(231, 190, 208)",
+    label: "A133 Tanári szoba",
+    category: "Tanári szoba",
+  },  
+  {
+    position: [-1.9, -0.9, -1.4],
+    size: [6, 1.0, 3],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.28,
+    label: "Folyosó - 1. emelet irodák",
+  },
+  {
+    position: [0, -1 , -3.1],
+    size: [8, 8, 0.12],
+    color: "rgb(248, 250, 252)",
+    opacity: 0.5,
+    label: "A ép. 1. emelet - Alap",
   },
 ];
 
@@ -474,21 +515,21 @@ const secondFloorRooms: RoomDefinition[] = [
   },
   {
     position: [-4.5, -7.1, 0],
-    size: [3.0, 2.0, 0.22],
+    size: [2.9, 2.0, 0.22],
     color: "rgb(184, 227, 180)",
     label: "A217 Tanterem",
     category: "Tanterem",
   },
   {
     position: [-1.9, -7.1, 0],
-    size: [2.5, 2.0, 0.22],
+    size: [2.4, 2.0, 0.22],
     color: "rgb(184, 227, 180)",
     label: "A218 Tanterem",
     category: "Tanterem",
   },
   {
     position: [0.45, -7.1, 0],
-    size: [2.5, 2.0, 0.22],
+    size: [2.4, 2.0, 0.22],
     color: "rgb(234, 209, 220)",
     label: "A219 Tanári szoba",
     category: "Tanári szoba",
@@ -534,7 +575,7 @@ const secondFloorRooms: RoomDefinition[] = [
     color: "rgb(234, 209, 220)",
     label: "A213 Tanári szoba",
     category: "Tanári szoba",
-  },
+  },  
 ];
 
 export const floorGroups: FloorGroupDefinition[] = [
