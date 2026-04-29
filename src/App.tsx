@@ -113,6 +113,7 @@ function App() {
 
     const syncFilterFromInput = () => {
       setFilter(inputEl.value);
+      setCategory("");
     };
 
     const handleFocus = () => {
@@ -272,7 +273,10 @@ function App() {
                     type="text"
                     ref={inputRef}
                     value={filter}
-                    onChange={(e) => setFilter(e.target.value)}
+                    onChange={(e) => {
+                      setFilter(e.target.value);
+                      setCategory("");
+                    }}
                     onFocus={() => setIsSearchFocused(true)}
                     onBlur={() => setIsSearchFocused(false)}
                     className={`peer h-11 w-full rounded-lg border ${theme === "light" ? "border-green-300/60 bg-transparent text-gray-900 placeholder-gray-400 focus:ring-green-400/50" : "border-gray-600 bg-transparent text-white placeholder-gray-500 focus:ring-blue-400/50"} pl-5 pr-4 transition-all duration-300 focus:outline-none focus:ring-2 focus:border-transparent`}
