@@ -12,3 +12,53 @@ body {
   overflow-x: hidden;
   font-family: "Segoe UI", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;
 }
+
+.themed-scrollbar {
+  scrollbar-width: thin;
+}
+
+[data-theme="light"] .themed-scrollbar {
+  scrollbar-color: #68b59d #d9f3e2;
+}
+
+[data-theme="dark"] .themed-scrollbar {
+  scrollbar-color: #4f8bd6 #1f2937;
+}
+
+.themed-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.themed-scrollbar::-webkit-scrollbar-track {
+  border-radius: 9999px;
+}
+
+[data-theme="light"] .themed-scrollbar::-webkit-scrollbar-track {
+  background: #d9f3e2;
+}
+
+[data-theme="dark"] .themed-scrollbar::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+.themed-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+[data-theme="light"] .themed-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #68b59d;
+}
+
+[data-theme="dark"] .themed-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4f8bd6;
+}
+
+[data-theme="light"] .themed-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #4d9f86;
+}
+
+[data-theme="dark"] .themed-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #6ea6ea;
+}

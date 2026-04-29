@@ -2,13 +2,14 @@ import Room from "./Room";
 import { Html } from "@react-three/drei";
 import {
   floorGroups,
-  getFloorLabel,
   isBaseRoomLabel,
   isCorridorLabel,
   type RoomDefinition,
 } from "./roomData";
+import type { Language } from "../i18n/translations";
 
 type SelectedRoomData = RoomDefinition & { floor: number };
+type Theme = "light" | "dark";
 
 type RoomGroupProps = {
   getOpacity: (
@@ -19,6 +20,9 @@ type RoomGroupProps = {
   zoomFilter: number | null;
   onZoomChange: (filter: number | null) => void;
   onRoomSelect: (room: SelectedRoomData) => void;
+  language: Language;
+  t: (key: string, defaultValue?: string) => string;
+  theme: Theme;
 };
 
 function RoomGroups({
@@ -26,7 +30,22 @@ function RoomGroups({
   zoomFilter,
   onZoomChange,
   onRoomSelect,
+  language,
+  t,
+  theme,
 }: RoomGroupProps) {
+  const getTranslatedFloorLabel = (floor: number): string => {
+    const labels: Record<number, string> = {
+      1: t("floors.ground"),
+      2: t("floors.first"),
+      3: t("floors.second"),
+    };
+    return (
+      labels[floor] ??
+      `${Math.max(floor - 1, 0)}. ${language === "hu" ? "emelet" : "floor"}`
+    );
+  };
+
   return (
     <group position={[0, 0, 0]} rotation={[-1.2, 0, 0.2]}>
       {zoomFilter == null ? (
@@ -36,8 +55,14 @@ function RoomGroups({
           distanceFactor={14}
           style={{ pointerEvents: "none" }}
         >
-          <div className="rounded-full border w-max border-red-300/80 bg-red-50/95 px-3 py-1 text-xs font-semibold tracking-wide text-red-800 shadow-sm">
-            Itt állsz
+          <div
+            className={`rounded-full border w-max px-3 py-1 text-xs font-semibold tracking-wide shadow-sm ${
+              theme === "light"
+                ? "border-red-300/80 bg-red-50/95 text-red-800"
+                : "border-red-700 bg-red-950/95 text-red-200"
+            }`}
+          >
+            {language === "hu" ? "Itt állsz" : "You are here"}
           </div>
         </Html>
       ) : null}
@@ -59,8 +84,14 @@ function RoomGroups({
                 distanceFactor={14}
                 style={{ pointerEvents: "none" }}
               >
-                <div className="rounded-full border w-max border-green-300/80 bg-green-50/95 px-3 py-1 text-xs font-semibold tracking-wide text-green-800 shadow-sm">
-                  {getFloorLabel(floor.floor)}
+                <div
+                  className={`rounded-full border w-max px-3 py-1 text-xs font-semibold tracking-wide shadow-sm ${
+                    theme === "light"
+                      ? "border-green-300/80 bg-green-50/95 text-green-800"
+                      : "border-green-700 bg-green-950/95 text-green-200"
+                  }`}
+                >
+                  {getTranslatedFloorLabel(floor.floor)}
                 </div>
               </Html>
             ) : null}
