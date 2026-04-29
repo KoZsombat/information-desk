@@ -4,6 +4,7 @@ import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { useEffect, useState, useRef } from "react";
 import RoomGroups from "./components/RoomGroups";
 import {
+  bFloorGroups,
   categoryOptions,
   floorGroups,
   isBaseRoomLabel,
@@ -49,6 +50,7 @@ function App() {
   const [theme, setTheme] = useState<Theme>("light");
   const [filter, setFilter] = useState("");
   const [category, setCategory] = useState("");
+  const [useBFloorGroups, setUseBFloorGroups] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [zoomFilter, setZoomFilter] = useState<number | null>(null);
   const [selectedRoom, setSelectedRoom] = useState<SelectedRoomData | null>(
@@ -162,8 +164,10 @@ function App() {
     return matchesFilter && matchesCategory ? baseOpacity : 0.4;
   };
 
+  const activeFloorGroups = useBFloorGroups ? bFloorGroups : floorGroups;
+
   const selectedFloorRooms =
-    floorGroups
+    activeFloorGroups
       .find((floor) => floor.floor === zoomFilter)
       ?.rooms.filter(
         (room) => !isBaseRoomLabel(room.label) && !isCorridorLabel(room.label),
@@ -220,6 +224,7 @@ function App() {
                 />
 
                 <RoomGroups
+                  floorGroups={activeFloorGroups}
                   getOpacity={getOpacity}
                   zoomFilter={zoomFilter}
                   onZoomChange={setZoomFilter}
@@ -334,6 +339,44 @@ function App() {
                     );
                   })}
                 </div>
+              </div>
+              <div
+                className={`w-full rounded-lg ${theme === "light" ? "border border-green-200/60 bg-green-50" : "border border-gray-700 bg-gray-800"} p-4 shadow-sm backdrop-blur-sm sm:p-5`}
+              >
+                <div className="mb-4 flex items-center justify-between">
+                  <p
+                    className={`text-sm font-semibold tracking-wide uppercase ${theme === "light" ? "text-gray-600" : "text-gray-300"}`}
+                  >
+                    {language === "hu" ? "Térkép nézet" : "Map view"}
+                  </p>
+                  <span
+                    className={`rounded-full px-3 py-1 text-xs font-semibold ${theme === "light" ? "bg-white text-green-800 border border-green-200" : "bg-gray-900 text-blue-200 border border-gray-600"}`}
+                  >
+                    {useBFloorGroups
+                      ? language === "hu"
+                        ? "B épület"
+                        : "Building B"
+                      : language === "hu"
+                        ? "A épület"
+                        : "Building A"}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUseBFloorGroups((prev) => !prev);
+                    setSelectedRoom(null);
+                  }}
+                  className={`w-full rounded-full border px-4 py-3 text-sm font-semibold transition-all duration-200 ${theme === "light" ? "border-green-300 bg-white text-gray-800 hover:border-green-500 hover:bg-green-50" : "border-gray-600 bg-gray-900 text-gray-100 hover:border-gray-500 hover:bg-gray-800"}`}
+                >
+                  {useBFloorGroups
+                    ? language === "hu"
+                      ? "Váltás A épületre"
+                      : "Switch to Building A"
+                    : language === "hu"
+                      ? "Váltás B épületre"
+                      : "Switch to Building B"}
+                </button>
               </div>
               <div
                 className={`w-full rounded-lg ${theme === "light" ? "border border-green-300/50 bg-green-50 text-gray-600" : "border border-gray-700 bg-gray-800 text-gray-300"} px-4 py-4 text-sm backdrop-blur-sm sm:px-5`}

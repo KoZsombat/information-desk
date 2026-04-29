@@ -114,6 +114,32 @@ export const categoryOptions: CategoryOption[] = [
     activeClass: "border-[#ddd7c4] bg-[#ddd7c4]/80",
   },
 ];
+/*
+const basementRooms: RoomDefinition[] = [
+{
+    position: [0, 0, -0.2],
+    size: [20, 20, 0.12],
+    color: "rgb(248, 250, 252)",
+    opacity: 0.5,
+    label: "A ép. 2. emelet - Alap",
+  },
+  {
+    position: [-5.4, 0, -0.01],
+    size: [1.0, 13, 0.08],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.28,
+    label: "Folyosó - 2. emelet gerinc",
+  },
+  {
+    position: [-1.6, -5.8, -0.01],
+    size: [6.7, 1.0, 0.08],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.28,
+    label: "Folyosó - 2. emelet irodák",
+  },
+
+
+];*/
 
 const groundFloorRooms: RoomDefinition[] = [
   {
@@ -902,8 +928,348 @@ const secondFloorRooms: RoomDefinition[] = [
   },
 ];
 
+const bGroundFloorRooms: RoomDefinition[] = [
+  {
+    position: [0, 0, -0.2],
+    size: [20, 30, 0.12],
+    color: "rgb(248, 250, 252)",
+    opacity: 0.5,
+    label: "B ép. földszint - Alap",
+  },
+  {
+    position: [-5.5, -2, -0.01],
+    size: [5, 2, 0.08],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Földszint Bejárat",
+  },
+  {
+    position: [0, 0, -0.01],
+    size: [6, 18, 0.08],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Földszint gerinc",
+  },
+  //lépcső Felfele
+  {
+    position: [0, 8.6, 0.1],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 8.8, 0.3],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 9, 0.5],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 9.2, 0.7],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 9.4, 0.9],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 9.6, 1.1],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 9.8, 1.3],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 10, 1.5],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 10.2, 1.7],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 10.4, 1.9],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  //termek
+];
+
+const bFirstFloorRooms: RoomDefinition[] = [
+  {
+    position: [0, 0, -0.2],
+    size: [20, 30, 0.12],
+    color: "rgb(248, 250, 252)",
+    opacity: 0.5,
+    label: "B ép. 1. emelet - Alap",
+  },
+  {
+    position: [0, 0, -0.01],
+    size: [6, 18, 0.08],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Földszint gerinc",
+  },
+  //lépcső Felfele
+  {
+    position: [0, 8.6, 0.1],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 8.8, 0.3],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 9, 0.5],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 9.2, 0.7],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 9.4, 0.9],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 9.6, 1.1],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 9.8, 1.3],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 10, 1.5],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 10.2, 1.7],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 10.4, 1.9],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  //termek
+
+  {
+    position: [4, 9, 0.3],
+    size: [2, 3, 0.67],
+    color: "rgb(248, 232, 191)",
+    label: "",
+    category: "Tanterem",
+  },
+  {
+    position: [6.4, 9, 0.3],
+    size: [3, 3, 0.67],
+    color: "rgb(248, 232, 191)",
+    label: "",
+    category: "Tanterem",
+  },
+  {
+    position: [4, 5, 0.3],
+    size: [2, 1, 0.67],
+    color: "rgb(191, 206, 248)",
+    label: "B137 Férfi WC",
+    category: "WC",
+  },
+  {
+    position: [4, 4, 0.3],
+    size: [2, 1, 0.67],
+    color: "rgb(244, 191, 248)",
+    label: "B138 Női WC",
+    category: "WC",
+  },
+  {
+    position: [4, 3, 0.3],
+    size: [2, 1, 0.67],
+    color: "rgb(131, 133, 136)",
+    label: "B140 Akadálymentes WC",
+    category: "WC",
+  },
+  {
+    position: [4, 2, 0.3],
+    size: [2, 1, 0.67],
+    color: "rgb(191, 248, 226)",
+    label: "B141 Személyzeti WC",
+    category: "WC",
+  },
+  {
+    position: [5, 0, 0.3],
+    size: [4, 3, 0.67],
+    color: "rgb(248, 232, 191)",
+    label: "",
+    category: "",
+  },
+];
+
+const bSecondFloorRooms: RoomDefinition[] = [
+  {
+    position: [0, 0, -0.2],
+    size: [20, 30, 0.12],
+    color: "rgb(248, 250, 252)",
+    opacity: 0.5,
+    label: "B ép. 2. emelet - Alap",
+  },
+  {
+    position: [0, 0, -0.01],
+    size: [6, 18, 0.08],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Földszint gerinc",
+  },
+  //lépcső Felfele
+  {
+    position: [0, 8.6, 0.1],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 8.8, 0.3],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 9, 0.5],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 9.2, 0.7],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 9.4, 0.9],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 9.6, 1.1],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 9.8, 1.3],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 10, 1.5],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 10.2, 1.7],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+  {
+    position: [0, 10.4, 1.9],
+    size: [2, 0.2, 0.2],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Lépcső",
+  },
+];
+
+const bThirdFloorRooms: RoomDefinition[] = [
+  {
+    position: [0, 0, -0.2],
+    size: [20, 30, 0.12],
+    color: "rgb(248, 250, 252)",
+    opacity: 0.5,
+    label: "B ép. 3. emelet - Alap",
+  },
+  {
+    position: [0, 0, -0.01],
+    size: [6, 18, 0.08],
+    color: "rgb(201, 209, 224)",
+    opacity: 0.4,
+    label: "Folyosó - Földszint gerinc",
+  },
+];
+
 export const floorGroups: FloorGroupDefinition[] = [
-  { position: [0, 0, -3], scale: 0.42, rooms: groundFloorRooms, floor: 1 },
+  { position: [0, 1, -2.5], scale: 0.42, rooms: groundFloorRooms, floor: 1 },
   {
     position: [0, 1, 0],
     scale: 0.42,
@@ -911,9 +1277,42 @@ export const floorGroups: FloorGroupDefinition[] = [
     floor: 2,
   },
   {
-    position: [0, 1, 3],
+    position: [0, 1, 2.5],
     scale: 0.42,
     rooms: secondFloorRooms,
     floor: 3,
+  } /*
+  {
+    position: [0, 1, -6],
+    scale: 0.42,
+    rooms: basementRooms,
+    floor: 0,
+  }*/,
+];
+
+export const bFloorGroups: FloorGroupDefinition[] = [
+  {
+    position: [0, 1, -4],
+    scale: 0.42,
+    rooms: bGroundFloorRooms,
+    floor: 1,
+  },
+  {
+    position: [0, 1, -1.5],
+    scale: 0.42,
+    rooms: bFirstFloorRooms,
+    floor: 2,
+  },
+  {
+    position: [0, 1, 1],
+    scale: 0.42,
+    rooms: bSecondFloorRooms,
+    floor: 3,
+  },
+  {
+    position: [0, 1, 3.5],
+    scale: 0.42,
+    rooms: bThirdFloorRooms,
+    floor: 4,
   },
 ];

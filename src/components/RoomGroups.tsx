@@ -1,9 +1,9 @@
 import Room from "./Room";
 import { Html } from "@react-three/drei";
 import {
-  floorGroups,
   isBaseRoomLabel,
   isCorridorLabel,
+  type FloorGroupDefinition,
   type RoomDefinition,
 } from "./roomData";
 import type { Language } from "../i18n/translations";
@@ -12,6 +12,7 @@ type SelectedRoomData = RoomDefinition & { floor: number };
 type Theme = "light" | "dark";
 
 type RoomGroupProps = {
+  floorGroups: FloorGroupDefinition[];
   getOpacity: (
     label: string,
     selfCategory: string,
@@ -26,6 +27,7 @@ type RoomGroupProps = {
 };
 
 function RoomGroups({
+  floorGroups,
   getOpacity,
   zoomFilter,
   onZoomChange,
