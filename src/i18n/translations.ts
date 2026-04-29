@@ -217,10 +217,14 @@ export function getTranslation(
   defaultValue: string = "",
 ): string {
   const keys = key.split(".");
-  let value: any = translations[lang];
+  let value: unknown = translations[lang];
 
   for (const k of keys) {
-    value = value?.[k];
+    if (typeof value !== "object" || value === null || !(k in value)) {
+      return defaultValue;
+    }
+
+    value = (value as Record<string, unknown>)[k];
     if (value === undefined) return defaultValue;
   }
 
