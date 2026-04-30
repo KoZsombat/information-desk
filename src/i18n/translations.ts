@@ -40,10 +40,18 @@ export const translations = {
       switchToDark: "Sötét mód",
       switchToLight: "Világos mód",
     },
+    languageSelector: {
+      label: "Nyelv",
+      hu: "Magyar",
+      en: "Angol",
+      huShort: "HU",
+      enShort: "EN",
+    },
     floors: {
       ground: "Földszint",
       first: "1. emelet",
       second: "2. emelet",
+      generic: "emelet",
     },
     rooms: {
       corridor: "Folyosó",
@@ -144,10 +152,18 @@ export const translations = {
       switchToDark: "Dark Mode",
       switchToLight: "Light Mode",
     },
+    languageSelector: {
+      label: "Language",
+      hu: "Hungarian",
+      en: "English",
+      huShort: "HU",
+      enShort: "EN",
+    },
     floors: {
       ground: "Ground Floor",
       first: "1st Floor",
       second: "2nd Floor",
+      generic: "floor",
     },
     rooms: {
       corridor: "Corridor",

@@ -3,11 +3,13 @@ import type { Language } from "../i18n/translations";
 interface LanguageSwitcherProps {
   currentLanguage: Language;
   onLanguageChange: (language: Language) => void;
+  t: (key: string, defaultValue?: string) => string;
 }
 
 export default function LanguageSwitcher({
   currentLanguage,
   onLanguageChange,
+  t,
 }: LanguageSwitcherProps) {
   return (
     <div className="fixed bottom-0 right-0 z-50 flex items-center gap-2 p-3 sm:p-4">
@@ -18,8 +20,9 @@ export default function LanguageSwitcher({
             ? "border border-green-400 bg-green-100 text-green-800 shadow-md"
             : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
         }`}
+        aria-label={t("languageSelector.hu")}
       >
-        🇭🇺 Magyar
+        🇭🇺 {t("languageSelector.hu")}
       </button>
       <button
         onClick={() => onLanguageChange("en")}
@@ -28,8 +31,9 @@ export default function LanguageSwitcher({
             ? "border border-green-400 bg-green-100 text-green-800 shadow-md"
             : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
         }`}
+        aria-label={t("languageSelector.en")}
       >
-        🇬🇧 English
+        🇬🇧 {t("languageSelector.en")}
       </button>
     </div>
   );

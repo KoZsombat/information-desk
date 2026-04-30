@@ -5,8 +5,7 @@ import {
   isBaseRoomLabel,
   isCorridorLabel,
   type RoomDefinition,
-} from "./roomData";
-import type { Language } from "../i18n/translations";
+} from "../data/roomData";
 
 type SelectedRoomData = RoomDefinition & { floor: number };
 type Theme = "light" | "dark";
@@ -20,7 +19,6 @@ type RoomGroupProps = {
   zoomFilter: number | null;
   onZoomChange: (filter: number | null) => void;
   onRoomSelect: (room: SelectedRoomData) => void;
-  language: Language;
   t: (key: string, defaultValue?: string) => string;
   theme: Theme;
 };
@@ -30,7 +28,6 @@ function RoomGroups({
   zoomFilter,
   onZoomChange,
   onRoomSelect,
-  language,
   t,
   theme,
 }: RoomGroupProps) {
@@ -40,29 +37,75 @@ function RoomGroups({
       2: t("floors.first"),
       3: t("floors.second"),
     };
-    return (
-      labels[floor] ??
-      `${Math.max(floor - 1, 0)}. ${language === "hu" ? "emelet" : "floor"}`
-    );
+    return labels[floor] ?? `${Math.max(floor - 1, 0)}. ${t("floors.generic")}`;
   };
 
   return (
     <group position={[0, 0, 0]} rotation={[-1.2, 0, 0.2]}>
       {zoomFilter == null ? (
         <Html
-          position={[-3.8, 0, -3]}
+          position={[-3.1, 0.8, -2.5]}
           center
           distanceFactor={14}
           style={{ pointerEvents: "none" }}
         >
           <div
-            className={`rounded-full border w-max px-3 py-1 text-xs font-semibold tracking-wide shadow-sm ${
-              theme === "light"
-                ? "border-red-300/80 bg-red-50/95 text-red-800"
-                : "border-red-700 bg-red-950/95 text-red-200"
+            className={`flex h-11 w-11 items-center justify-center ${
+              theme === "light" ? "text-red-700" : "text-red-300"
             }`}
           >
-            {language === "hu" ? "Itt állsz" : "You are here"}
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M12 22s6-4.8 6-10a6 6 0 1 0-12 0c0 5.2 6 10 6 10Z" />
+              <circle
+                cx="12"
+                cy="12"
+                r="2.2"
+                fill="currentColor"
+                stroke="none"
+              />
+            </svg>
+          </div>
+        </Html>
+      ) : zoomFilter == 1 ? (
+        <Html
+          position={[-3.1, 0.8, 0.5]}
+          center
+          distanceFactor={14}
+          style={{ pointerEvents: "none" }}
+        >
+          <div
+            className={`flex h-11 w-11 items-center justify-center ${
+              theme === "light" ? "text-red-700" : "text-red-300"
+            }`}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M12 22s6-4.8 6-10a6 6 0 1 0-12 0c0 5.2 6 10 6 10Z" />
+              <circle
+                cx="12"
+                cy="12"
+                r="2.2"
+                fill="currentColor"
+                stroke="none"
+              />
+            </svg>
           </div>
         </Html>
       ) : null}

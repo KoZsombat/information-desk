@@ -1,121 +1,6 @@
-export type RoomDefinition = {
-  position: [number, number, number];
-  size: [number, number, number];
-  color: string;
-  label: string;
-  category?: string;
-  opacity?: number;
-};
+import type { FloorGroupDefinition, RoomDefinition } from "./types";
 
-export type FloorGroupDefinition = {
-  position: [number, number, number];
-  scale: number;
-  rooms: RoomDefinition[];
-  floor: number;
-};
-
-export type CategoryOption = {
-  value: string;
-  label: string;
-  emoji: string;
-  inactiveClass: string;
-  activeClass: string;
-};
-
-const floorLabelByNumber: Record<number, string> = {
-  1: "Földszint",
-  2: "1. emelet",
-  3: "2. emelet",
-};
-
-export const getFloorLabel = (floor: number) =>
-  floorLabelByNumber[floor] ?? `${Math.max(floor - 1, 0)}. emelet`;
-
-const BASE_LABEL_SUFFIX = "- Alap";
-const CORRIDOR_LABEL_PREFIX = "Folyosó";
-
-export const isBaseRoomLabel = (label: string) =>
-  label.includes(BASE_LABEL_SUFFIX);
-
-export const isCorridorLabel = (label: string) =>
-  label.startsWith(CORRIDOR_LABEL_PREFIX);
-
-export const categoryOptions: CategoryOption[] = [
-  {
-    value: "Informatika",
-    label: "Informatika",
-    emoji: "💻",
-    inactiveClass:
-      "border-[#9fc5e8]/80 bg-[#9fc5e8]/20 hover:border-[#9fc5e8]/80 hover:bg-[#9fc5e8]/60",
-    activeClass: "border-[#9fc5e8] bg-[#9fc5e8]/80",
-  },
-  {
-    value: "Laboratórium",
-    label: "Laboratórium",
-    emoji: "🧪",
-    inactiveClass:
-      "border-[#cde2f8]/80 bg-[#cde2f8]/20 hover:border-[#cde2f8]/80 hover:bg-[#cde2f8]/60",
-    activeClass: "border-[#cde2f8] bg-[#cde2f8]/80",
-  },
-  {
-    value: "Tanterem",
-    label: "Tanterem",
-    emoji: "📚",
-    inactiveClass:
-      "border-[#b8e3b0]/80 bg-[#b8e3b0]/20 hover:border-[#b8e3b0]/80 hover:bg-[#b8e3b0]/60",
-    activeClass: "border-[#b8e3b0] bg-[#b8e3b0]/80",
-  },
-  {
-    value: "Tanári szoba",
-    label: "Tanári szoba",
-    emoji: "👩‍🏫",
-    inactiveClass:
-      "border-[#ead1dc]/80 bg-[#ead1dc]/20 hover:border-[#ead1dc]/80 hover:bg-[#ead1dc]/60",
-    activeClass: "border-[#ead1dc] bg-[#ead1dc]/80",
-  },
-  {
-    value: "Irodák",
-    label: "Irodák",
-    emoji: "📁",
-    inactiveClass:
-      "border-[#d9d2e9]/80 bg-[#d9d2e9]/20 hover:border-[#d9d2e9]/80 hover:bg-[#d9d2e9]/60",
-    activeClass: "border-[#d9d2e9] bg-[#d9d2e9]/80",
-  },
-  {
-    value: "Tornaterem",
-    label: "Tornaterem",
-    emoji: "🏀",
-    inactiveClass:
-      "border-[#f4cccc]/80 bg-[#f4cccc]/20 hover:border-[#f4cccc]/80 hover:bg-[#f4cccc]/60",
-    activeClass: "border-[#e69999] bg-[#e69999]/80",
-  },
-  {
-    value: "WC",
-    label: "WC",
-    emoji: "🚻",
-    inactiveClass:
-      "border-[#dce6f1]/80 bg-[#dce6f1]/20 hover:border-[#dce6f1]/80 hover:bg-[#dce6f1]/60",
-    activeClass: "border-[#dce6f1] bg-[#dce6f1]/80",
-  },
-  {
-    value: "Előkészítő",
-    label: "Előkészítő",
-    emoji: "🧰",
-    inactiveClass:
-      "border-[#f8e8bf]/80 bg-[#f8e8bf]/20 hover:border-[#f8e8bf]/80 hover:bg-[#f8e8bf]/60",
-    activeClass: "border-[#f8e8bf] bg-[#f8e8bf]/80",
-  },
-  {
-    value: "Egyéb",
-    label: "Egyéb",
-    emoji: "🧭",
-    inactiveClass:
-      "border-[#ddd7c4]/80 bg-[#ddd7c4]/20 hover:border-[#ddd7c4]/80 hover:bg-[#ddd7c4]/60",
-    activeClass: "border-[#ddd7c4] bg-[#ddd7c4]/80",
-  },
-];
-
-const groundFloorRooms: RoomDefinition[] = [
+export const groundFloorRooms: RoomDefinition[] = [
   {
     position: [0, 0, -0.2],
     size: [20, 20, 0.12],
@@ -353,7 +238,7 @@ const groundFloorRooms: RoomDefinition[] = [
   {
     position: [-7.3, -0.5, 0.3],
     size: [1, 1, 0.67],
-    color: "rgb(236, 0, 0)",
+    color: "rgb(221,215,196)",
     label: "A027 Porta",
     category: "Egyéb",
   },
@@ -373,7 +258,7 @@ const groundFloorRooms: RoomDefinition[] = [
   },
 ];
 
-const firstFloorRooms: RoomDefinition[] = [
+export const firstFloorRooms: RoomDefinition[] = [
   {
     position: [0, 0, -0.2],
     size: [20, 20, 0.12],
@@ -680,7 +565,7 @@ const firstFloorRooms: RoomDefinition[] = [
   },
 ];
 
-const secondFloorRooms: RoomDefinition[] = [
+export const secondFloorRooms: RoomDefinition[] = [
   {
     position: [0, 0, -0.2],
     size: [20, 20, 0.12],
@@ -903,7 +788,7 @@ const secondFloorRooms: RoomDefinition[] = [
 ];
 
 export const floorGroups: FloorGroupDefinition[] = [
-  { position: [0, 0, -3], scale: 0.42, rooms: groundFloorRooms, floor: 1 },
+  { position: [0, 1, -3], scale: 0.42, rooms: groundFloorRooms, floor: 1 },
   {
     position: [0, 1, 0],
     scale: 0.42,
